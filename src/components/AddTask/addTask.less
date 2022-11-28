@@ -1,13 +1,16 @@
 .add-task {
    padding: 10px;
    background-color: rgba(238, 238, 238, 0.571);
-   &__button, &__file {
+   &__button, &__file, &__title, &__description, &__deadline {
       width: 45%;
       margin: 15px auto;
+      text-align: center;
+   }
+   &__title, &__description, &__deadline {
+      margin: 5px auto;
    }
    &__file {
       padding: 5px 0;
-      text-align: center;
       background-color: rgba(187, 187, 187, 0.784);
    }
 }
