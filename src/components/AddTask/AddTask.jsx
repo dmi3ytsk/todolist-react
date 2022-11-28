@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { store, storage } from "../../firebase";
 
+import "./addTask.less"
+
 const AddTask = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
