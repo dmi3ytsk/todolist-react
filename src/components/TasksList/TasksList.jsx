@@ -4,6 +4,11 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { store } from "../../firebase";
 import TaskTile from "../TaskTile/TaskTile";
 
+/**
+ * Компонент лист задач
+ * Рендерит все TaskTile. Загружает все doc из collection firebase
+ * @returns {JSX.Element}
+ */
 const TasksList = () => {
   const [tasks, setTasks] = useState([]);
 
@@ -21,12 +26,7 @@ const TasksList = () => {
   return (
     <div className="todolist__tasks-list">
       {tasks.map((task) => {
-        return (
-          <TaskTile
-            key={task.id}
-            task={task}
-          />
-        );
+        return <TaskTile key={task.id} task={task} />;
       })}
     </div>
   );

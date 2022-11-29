@@ -4,15 +4,21 @@ import { useState } from "react";
 
 import { store, storage } from "../../firebase";
 
-import "./addTask.less"
-
+import "./addTask.less";
+/**
+ * Компонент в котором создаем задачу.
+ * Рендерит форму с инпутами(название задачи, описание, дэдлайн, файл картинки(опционально))
+ * @returns {JSX.Element}
+ */
 const AddTask = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("00:00");
   const [file, setFile] = useState(null);
-
+  /**
+   * Функция очистки полей после отправки данных формы
+   */
   const clearFields = () => {
     setTitle("");
     setDesc("");
@@ -20,6 +26,11 @@ const AddTask = () => {
     setTime("00:00");
     setFile(null);
   };
+  /**
+   * Асинхронная функция для создания нового doc в collection firebase и,
+   * опционально, выгружает файл в firebase storage
+   * @param {React.FormEvent<HTMLFormElement>} event
+   */
   const addTaskToStore = async (event) => {
     event.preventDefault();
     if (title !== "" && desc !== "" && date !== "") {

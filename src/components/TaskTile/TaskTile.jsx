@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  deleteDoc,
+  QueryDocumentSnapshot,
+  DocumentData,
+} from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 
 import { store, storage } from "../../firebase";
 
 import "./taskTile.less";
-
+/**
+ * Асинхронная функция переключения состояния задачи.
+ * Обновляет значение isDone в doc firebase
+ * @param {QueryDocumentSnapshot<DocumentData>} task
+ */
 const toggleDone = async (task) => {
   await updateDoc(doc(store, "tasks", task.id), {
     isDone: !task.isDone,
   });
 };
+/**
+ * Асинхронная функция для удаления задачи. Удаляет doc firebase id
+ * Удаляет файл(опционально)
+ * @param {string} id doc id в firebase
+ * @param {string} path уникальный путь к файлу
+ */
 const handleDelete = async (id, path) => {
   if (path) {
     const fileRef = ref(storage, path);
@@ -19,7 +35,11 @@ const handleDelete = async (id, path) => {
   }
   await deleteDoc(doc(store, "tasks", id));
 };
-
+/**
+ * Компонент задачи.
+ * Рендерит плитку с параметрами задачи
+ * @returns {JSX.Element}
+ */
 const TaskTile = ({ task }) => {
   const { title, desc, isDone, attach, attachPath, deadline } = task;
   const [fileUrl, setFileUrl] = useState("");
